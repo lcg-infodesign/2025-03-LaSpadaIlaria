@@ -5,6 +5,17 @@ let allnames, allnumbers, allcountry;
 let baseradius = 25;
 let maxradius = 450;
 let hoveredVolcano = null; // per salvare il vulcano sotto il mouse
+ let legenda = [
+  { type: "Stratovolcano", color: [255, 173, 177] },
+  { type: "Caldera", color: [189, 178, 255] },
+  { type: "Shield Volcano", color: [255, 214, 165] },
+  { type: "Submarine Volcano", color: [160, 196, 255] },
+  { type: "Maars / Tuff ring", color: [255, 214, 165] },
+  { type: "Cone", color: [202, 255, 191] },
+  { type: "Crater System", color: [255, 198, 255] },
+  { type: "Subglacia", color: [155, 246, 255] },
+  { type: "Other / Unknown", color: [255, 255, 252] }
+];
 
 function preload() {
   data = loadTable("vulcanidata.csv", "csv", "header")
@@ -92,26 +103,7 @@ function draw() {
 
     let type = data.getString(closestIndex, "TypeCategory");
 
-    // ridisegna il pallino più vicino sopra gli altri, più grande
-    if (type === "Stratovolcano") {
-      fill(255, 173, 177);
-    } else if (type === "Caldera") {
-      fill(189, 178, 255);
-    } else if (type === "Shield Volcano") {
-      fill(255, 214, 165);
-    } else if (type === "Submarine Volcano") {
-      fill(160, 196, 255);
-    } else if (type === "Maars / Tuff ring") {
-      fill(255, 214, 165);
-    } else if (type === "Cone") {
-      fill(202, 255, 191);
-    } else if (type === "Crater System") {
-      fill(255, 198, 255);
-    } else if (type === "Subglacia") {
-      fill(155, 246, 255);
-    } else if (type === "Other / Unknown") {
-      fill(255, 255, 252);
-    }
+
 
     ellipse(x, y, 15); // ingrandisci solo questo pallino
 
@@ -158,4 +150,20 @@ function draw() {
     textAlign(CENTER, BOTTOM);
     text(int(elevStep) + " m", width/2, height/2 - radiuscerchi - 6);
   }
+
+  //INIZIO A DISEGNARE LA LEGENDA
+
+    let startX = width - 380; // 200 px dal bordo destro
+    let startY = height / 2 - (legenda.length * 20) / 2;
+
+  for (let c = 0; c < legenda.length; c++) {
+    let yLegenda = startY + c * 25; // distanza tra le righe
+    fill(legenda[c].color);
+    ellipse(startX, yLegenda, 10);
+    fill(255);
+    textAlign(LEFT, CENTER);
+    text(legenda[c].type, startX + 20, yLegenda);
+  }
+
+
 }
