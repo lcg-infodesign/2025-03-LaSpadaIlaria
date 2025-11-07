@@ -8,13 +8,13 @@ let hoveredVolcano = null; // per salvare il vulcano sotto il mouse
  let legenda = [
   { type: "Stratovolcano", color: [255, 173, 177] },
   { type: "Caldera", color: [189, 178, 255] },
-  { type: "Shield Volcano", color: [255, 214, 165] },
-  { type: "Submarine Volcano", color: [160, 196, 255] },
-  { type: "Maars / Tuff ring", color: [255, 214, 165] },
-  { type: "Cone", color: [202, 255, 191] },
-  { type: "Crater System", color: [255, 198, 255] },
-  { type: "Subglacia", color: [155, 246, 255] },
-  { type: "Other / Unknown", color: [255, 255, 252] }
+  { type: "Vulcano a scudo", color: [255, 214, 165] },
+  { type: "Vulcano sottomarino", color: [160, 196, 255] },
+  { type: "Maar", color: [255, 214, 165] },
+  { type: "Cono vulcanico", color: [202, 255, 191] },
+  { type: "Sistema craterico", color: [255, 198, 255] },
+  { type: "Subglaciale", color: [155, 246, 255] },
+  { type: "Sconosciuto", color: [128, 128, 128] }
 ];
 
 function preload() {
@@ -80,7 +80,7 @@ function draw() {
     } else if (type === "Subglacia") {
       fill(155, 246, 255); // azzurro
     } else if (type === "Other / Unknown") {
-      fill(255, 255, 252); // bianco
+      fill(128, 128, 128); // bianco
     }
 
     // per il cerchio e il mouseover
@@ -104,7 +104,7 @@ function draw() {
     let type = data.getString(closestIndex, "TypeCategory");
 
 
-
+    fill(255);
     ellipse(x, y, 15); // ingrandisci solo questo pallino
 
     hoveredVolcano = {
@@ -153,7 +153,7 @@ function draw() {
 
   //INIZIO A DISEGNARE LA LEGENDA
 
-    let startX = width - 380; // 200 px dal bordo destro
+    let startX = width - 330; // 200 px dal bordo destro
     let startY = height / 2 - (legenda.length * 20) / 2;
 
   for (let c = 0; c < legenda.length; c++) {
@@ -165,5 +165,11 @@ function draw() {
     text(legenda[c].type, startX + 20, yLegenda);
   }
 
+
+  noStroke();
+fill(255);
+textAlign(LEFT, TOP);
+textSize(22);
+text("esercitazione 3", 30, 30);
 
 }
